@@ -38,7 +38,7 @@ RGWriteBehind(GB,  keysPrefix='person', mappings=personsMappings, connector=pers
 '''
 Create Postgres cars connector
 '''
-carsConnector = MySqlConnector(connection, 'cars', 'car_id')
+carsConnector = PostgresConnector(connection, 'cars', 'car_id')
 
 carsMappings = {
 	'id':'id',
