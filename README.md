@@ -49,10 +49,10 @@ RGWriteBehind(GB, keysPrefix='car', mappings=carsMappings, connector=carsConnect
 ```
 
 ## Running the recipe
-You can use [this utility](https://github.com/RedisGears/gears-cli) to send a RedisGears recipe for execution. For example, run this repository's [example.py recipe](examples/mysql/example.py) and install its dependencies with the following command:
+You can use [this utility](https://github.com/RedisGears/gears-cli) to send a RedisGears recipe for execution. For example, run this repository's [example.py recipe](examples/postges/example.py) and install its dependencies with the following command:
 
 ```bash
-gears-cli --host <host> --port <post> --password <password> run example.py REQUIREMENTS rgsync PyMySQL cryptography
+gears-cli --host <host> --port <post> --password <password> run example.py REQUIREMENTS rgsync psycopg2 cryptography
 ```
 
 ## Overview of the recipe's operation
@@ -171,7 +171,7 @@ An a example of a failed _Write Through_:
          2) 1) "status"
             2) "failed"
             3) "error"
-            4) "Failed connecting to SQL database, error=\"(pymysql.err.OperationalError) (2003, \"Can't connect to MySQL server on 'localhost' ([Errno 111] Connection refused)\")\n(Background on this error at: http://sqlalche.me/e/e3q8)\""
+            4) "Failed connecting to SQL database, error=\"(psycopg2.err.OperationalError) (2003, \"Can't connect to Postgres server on 'localhost' ([Errno 111] Connection refused)\")\n(Background on this error at: http://sqlalche.me/e/e3q8)\""
 
 ```
 
