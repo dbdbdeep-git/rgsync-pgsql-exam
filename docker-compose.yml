@@ -1,0 +1,36 @@
+version: '3'
+
+services:
+  postgres:
+    hostname: postgres
+    container_name: 'postgres'
+    image: 'postgres:latest'
+    labels: ['com.postgres.role=master']
+    environment:
+      POSTGRES_DB: test
+      POSTGRES_USER: demouser
+      POSTGRES_PASSWORD: Password123!
+      POSTGRES_HOST_AUTH_METHOD: 'trust'
+    ports:
+      - '5432:5432'
+  redisgears:
+    hostname: redisgears
+    container_name: 'redisgears'
+    image: 'redislabs/redisgears:latest'
+    labels: ['com.redis.role=redisgears']
+    ports:
+      - '6379:6379'
+    command: redis-server --requirepass password --loadmodule /var/opt/redislabs/lib/modules/redisgears.so Plugin /var/opt/redislabs/modules/rg/plugin/gears_python.so
+    depends_on: [ postgres ]
+  gears-cli:
+    hostname: gears-cli
+    container_name: 'gears-cli'
+    image: gears-cli
+    build: 
+      context: gears-cli/.
+      dockerfile: Dockerfile
+    command: sh -c "gears-cli run --host redisgears --port 6379 --password password example.py --requirements requirements.txt; while true; do echo hello; sleep 200; done"
+    depends_on:
+        - redisgears
+        - postgres
+  

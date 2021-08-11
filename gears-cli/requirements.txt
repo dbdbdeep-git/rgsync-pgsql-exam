@@ -1,0 +1,3 @@
+git+https://github.com/RedisGears/rgsync.git
+psycopg2
+cryptography
